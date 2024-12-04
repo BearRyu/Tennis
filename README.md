@@ -24,7 +24,7 @@
 import cv2
 import os
 
-# 비디오 파일 경로 설정
+* 비디오 파일 경로 설정
 video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'
 output_folder = r'D:/Tennis_Video/Frames'
 
