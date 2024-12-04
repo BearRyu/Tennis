@@ -20,33 +20,33 @@
 
 💻 Code
 
-'''python 
+'''python   
 
-import cv2
-import os
+import cv2  
+import os  
 
-video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'
-output_folder = r'D:/Tennis_Video/Frames'
+video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'  
+output_folder = r'D:/Tennis_Video/Frames'  
 
-if not os.path.exists(output_folder):
-    os.makedirs(output_folder)
+if not os.path.exists(output_folder):  
+    os.makedirs(output_folder)  
 
-cap = cv2.VideoCapture(video_path)
+cap = cv2.VideoCapture(video_path)  
 
-frame_count = 0
+frame_count = 0  
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
+while cap.isOpened():  
+    ret, frame = cap.read()  
+    if not ret:  
+        break  
     
-    frame_filename = os.path.join(output_folder, f'frame_{frame_count:04d}.jpg')
-    cv2.imwrite(frame_filename, frame)
+    frame_filename = os.path.join(output_folder, f'frame_{frame_count:04d}.jpg')  
+    cv2.imwrite(frame_filename, frame)  
     
-    frame_count += 1
+    frame_count += 1  
 
-cap.release()
-print(f"Total frames saved: {frame_count}")
+cap.release()  
+print(f"Total frames saved: {frame_count}")  
 
 '''
 
