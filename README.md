@@ -20,100 +20,42 @@
 
 💻 Code
 
-'''python   
-
-import cv2  
-import os  
-
-video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'  
-output_folder = r'D:/Tennis_Video/Frames'  
-
-if not os.path.exists(output_folder):  
-    os.makedirs(output_folder)  
-
-cap = cv2.VideoCapture(video_path)  
-
-frame_count = 0  
-
-while cap.isOpened():  
-    ret, frame = cap.read()  
-    if not ret:  
-        break  
-    
-    frame_filename = os.path.join(output_folder, f'frame_{frame_count:04d}.jpg')  
-    cv2.imwrite(frame_filename, frame)  
-    
-    frame_count += 1  
-
-cap.release()  
-print(f"Total frames saved: {frame_count}")  
-
-'''
-
-* 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
-
-
-'''python
-import cv2  
-import os  
-
-video_path = 'D:/Tennis_Video/Tennis_MP4_5.mp4'  
-output_video_path = 'D:/Tennis_Video/Tennis_Output_with_Frame_Label.mp4'  
-frame_label_dir = 'D:/Tennis_Video/frame_label'  
-
-class_mapping = {0: "ball", 1: "player", 2: "tennis racket", 3: "referee"}  
-class_colors = {  
-    0: (255, 0, 0),     
-    1: (0, 255, 0),   
-    2: (0, 0, 255),   
-    3: (255, 255, 0)    
-}
-
-cap = cv2.VideoCapture(video_path)  
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  
-fps = int(cap.get(cv2.CAP_PROP_FPS))  
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')  
-out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))  
-
-frame_index = 0  
-
-while cap.isOpened():  
-    ret, frame = cap.read()  
-    if not ret:  
-        break  
-
-    label_file = os.path.join(frame_label_dir, f'frame_{frame_index:04d}.txt')  
-
-    if os.path.exists(label_file):  
-        # Read the label file  
-        with open(label_file, 'r') as f:  
-            lines = f.readlines()  
-
-        for line in lines:  
-            values = line.strip().split()  
-            class_id = int(values[0])  
-            x_center, y_center = float(values[1]) * width, float(values[2]) * height  
-            box_width, box_height = float(values[3]) * width, float(values[4]) * height  
-  
-            x1 = int(x_center - box_width / 2)  
-            y1 = int(y_center - box_height / 2)  
-            x2 = int(x_center + box_width / 2)  
-            y2 = int(y_center + box_height / 2)  
-
-            color = class_colors.get(class_id, (255, 255, 255))      
-            label = class_mapping.get(class_id, "Unknown")  
-            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)  
-
-    out.write(frame)  
-    frame_index += 1  
-
-cap.release()	
-out.release()	
-cv2.destroyAllWindows()	
-print("Video processing with frame labels completed.")	
-'''
+ {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import cv2\n",
+    "import os\n",
+    "\n",
+    "# 비디오 파일 경로 설정\n",
+    "video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'\n",
+    "output_folder = r'D:/Tennis_Video/Frames'\n",
+    "\n",
+    "# 프레임을 저장할 폴더 생성\n",
+    "if not os.path.exists(output_folder):\n",
+    "    os.makedirs(output_folder)\n",
+    "\n",
+    "# 비디오 파일 열기\n",
+    "cap = cv2.VideoCapture(video_path)\n",
+    "\n",
+    "frame_count = 0\n",
+    "while cap.isOpened():\n",
+    "    ret, frame = cap.read()\n",
+    "    if not ret:\n",
+    "        break\n",
+    "    \n",
+    "    # 각 프레임을 JPG 파일로 저장\n",
+    "    frame_filename = os.path.join(output_folder, f'frame_{frame_count:04d}.jpg')\n",
+    "    cv2.imwrite(frame_filename, frame)\n",
+    "    \n",
+    "    frame_count += 1\n",
+    "\n",
+    "cap.release()\n",
+    "print(f\"Total frames saved: {frame_count}\")\n"
+   ]
+  }
 
 * 이 코드는 객체를 탐지하고 영상에서 그 객체를 탐지하고 있음을 보여주고 있는 코드 입니다.
 
@@ -254,4 +196,6 @@ print("Video processing with predictions completed.")
 
 - 예측된 공의 궤적을 화살표로 표시합니다.
 - 목표 지점을 작은 빨간색 원으로 표시하여 명확성을 높입니다.
+
+
 
