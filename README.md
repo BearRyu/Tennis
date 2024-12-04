@@ -20,7 +20,7 @@
 
 # Code
 
-'''py	
+'''python    
 import cv2	
 import os	
 
@@ -45,11 +45,11 @@ while cap.isOpened():
 
 cap.release()
 print(f"Total frames saved: {frame_count}")
-'''py
+'''
 
 * 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
 
-'''py
+'''python
 import cv2
 import os
 
@@ -109,7 +109,7 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 print("Video processing with frame labels completed.")
-'''py
+'''
 
 * 이 코드는 객체를 탐지하고 영상에서 그 객체를 탐지하고 있음을 보여주고 있는 코드 입니다.
 
@@ -126,7 +126,7 @@ print("Video processing with frame labels completed.")
 6. 실행 종료: 비디오 캡처 및 작성기 객체를 해제하고, 모든 OpenCV 창을 닫습니다.
 
 
-'''py
+'''python
 import cv2
 import os
 
@@ -231,7 +231,7 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 print("Video processing with predictions completed.")
-'''py
+'''
 
 먼저 이 코드의 기능을 알려드리자면,
 
