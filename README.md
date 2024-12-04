@@ -21,7 +21,6 @@
 # Code
 
 '''python
-
 import cv2	
 import os	
 
