@@ -20,7 +20,7 @@
 
 # Code
 
-'''
+'''py
 import cv2
 import os
 
@@ -49,7 +49,7 @@ print(f"Total frames saved: {frame_count}")
 
 * 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
 
-'''
+'''py
 import cv2
 import os
 
@@ -126,7 +126,7 @@ print("Video processing with frame labels completed.")
 6. 실행 종료: 비디오 캡처 및 작성기 객체를 해제하고, 모든 OpenCV 창을 닫습니다.
 
 
-'''
+'''py
 import cv2
 import os
 
