@@ -1,0 +1,6 @@
+Frames_image.zip filter=lfs diff=lfs merge=lfs -text
+Frames_label.zip filter=lfs diff=lfs merge=lfs -text
+train_image.zip filter=lfs diff=lfs merge=lfs -text
+val_image.zip filter=lfs diff=lfs merge=lfs -text
+val_label.zip filter=lfs diff=lfs merge=lfs -text
+train_label.zip filter=lfs diff=lfs merge=lfs -text
