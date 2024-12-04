@@ -21,6 +21,8 @@
 # Code
 
 '''
+
+
 import cv2
 import os
 
@@ -46,11 +48,13 @@ while cap.isOpened():
 cap.release()
 print(f"Total frames saved: {frame_count}")
 
+
 '''
 
 * 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
 
 '''
+
 
 import cv2
 import os
@@ -99,7 +103,7 @@ while cap.isOpened():
             x2 = int(x_center + box_width / 2)
             y2 = int(y_center + box_height / 2)
 
-            color = class_colors.get(class_id, (255, 255, 255))  # Default to white if class_id is unknown
+            color = class_colors.get(class_id, (255, 255, 255))  
             label = class_mapping.get(class_id, "Unknown")
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
             cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
@@ -111,6 +115,7 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 print("Video processing with frame labels completed.")
+
 
 '''
 
@@ -130,6 +135,7 @@ print("Video processing with frame labels completed.")
 
 
 '''
+
 
 import cv2
 import os
@@ -166,8 +172,8 @@ def draw_arrows(frame, ball_position, targets):
     for target in targets:
         pt1 = (int(ball_position[0]), int(ball_position[1]))
         pt2 = (int(target[0]), int(target[1]))
-        cv2.arrowedLine(frame, pt1, pt2, (0, 0, 255), 2, tipLength=0.2)  # Reduced tip size
-        cv2.circle(frame, pt2, 5, (0, 0, 255), -1)  # Small marker at target location
+        cv2.arrowedLine(frame, pt1, pt2, (0, 0, 255), 2, tipLength=0.2)  
+        cv2.circle(frame, pt2, 5, (0, 0, 255), -1) 
 
 cap = cv2.VideoCapture(video_path)
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -205,16 +211,16 @@ while cap.isOpened():
             x2 = int(x_center + box_width / 2)
             y2 = int(y_center + box_height / 2)
 
-            if class_id == 0:  # Ball
+            if class_id == 0:  
                 ball_position = (x_center, y_center)
                 ball_box = (x1, y1, x2, y2)
-            elif class_id == 2:  # Tennis racket
+            elif class_id == 2:  
                 racket_position = (x_center, y_center)
                 racket_box = (x1, y1, x2, y2)
-            elif class_id == 1:  # Player
+            elif class_id == 1:  
                 players.append((x_center, y_center))
 
-            color = class_colors.get(class_id, (255, 255, 255))  # Default to white if class_id is unknown
+            color = class_colors.get(class_id, (255, 255, 255))  
             label = class_mapping.get(class_id, "Unknown")
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
             cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
@@ -235,6 +241,7 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 print("Video processing with predictions completed.")
+
 
 '''
 
