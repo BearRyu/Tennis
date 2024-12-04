@@ -10,7 +10,7 @@
 
 #### Specific code description
 
-# Data Introduction
+🗂️ Data
 
 * 데이터는 최근 올림픽 경기였던 테니스 남자단식 2회전 노박 조코비치 vs 라파엘 나달의 경기 중 일부분을 따왔습니다!
 
@@ -18,7 +18,7 @@
 
 🎾 이 경기 중 13:29 ~ 13:54 경기를 가지고 왔습니다!
 
-# Code
+💻 Code
 
 '''python 
 
@@ -49,6 +49,7 @@ print(f"Total frames saved: {frame_count}")
 '''
 
 * 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
+
 
 '''python
 import cv2
