@@ -34,6 +34,7 @@ if not os.path.exists(output_folder):
 cap = cv2.VideoCapture(video_path)
 
 frame_count = 0
+
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
@@ -46,6 +47,7 @@ while cap.isOpened():
 
 cap.release()
 print(f"Total frames saved: {frame_count}")
+
 '''
 
 * 이 코드는 뽑아온 영상을 읽고, 각 프레임 별로 잘라 JPG 형태로 output_folder로 저장될 수 있게끔 해놓았습니다.
