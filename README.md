@@ -20,9 +20,10 @@
 
 # Code
 
-'''python
-import cv2	
-import os	
+'''python 
+
+import cv2
+import os
 
 video_path = r'D:/Tennis_Video/Tennis_MP4_5.mp4'
 output_folder = r'D:/Tennis_Video/Frames'
