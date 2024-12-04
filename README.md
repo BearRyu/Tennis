@@ -54,65 +54,65 @@ print(f"Total frames saved: {frame_count}")
 
 
 '''python
-import cv2
-import os
+import cv2  
+import os  
 
-video_path = 'D:/Tennis_Video/Tennis_MP4_5.mp4'
-output_video_path = 'D:/Tennis_Video/Tennis_Output_with_Frame_Label.mp4'
-frame_label_dir = 'D:/Tennis_Video/frame_label'
+video_path = 'D:/Tennis_Video/Tennis_MP4_5.mp4'  
+output_video_path = 'D:/Tennis_Video/Tennis_Output_with_Frame_Label.mp4'  
+frame_label_dir = 'D:/Tennis_Video/frame_label'  
 
-class_mapping = {0: "ball", 1: "player", 2: "tennis racket", 3: "referee"}
-class_colors = {
-    0: (255, 0, 0),    # Blue for ball
-    1: (0, 255, 0),    # Green for player
-    2: (0, 0, 255),    # Red for tennis racket
-    3: (255, 255, 0)   # Yellow for referee
+class_mapping = {0: "ball", 1: "player", 2: "tennis racket", 3: "referee"}  
+class_colors = {  
+    0: (255, 0, 0),     
+    1: (0, 255, 0),   
+    2: (0, 0, 255),   
+    3: (255, 255, 0)    
 }
 
-cap = cv2.VideoCapture(video_path)
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-fps = int(cap.get(cv2.CAP_PROP_FPS))
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
+cap = cv2.VideoCapture(video_path)  
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  
+fps = int(cap.get(cv2.CAP_PROP_FPS))  
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  
+out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))  
 
-frame_index = 0
+frame_index = 0  
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
+while cap.isOpened():  
+    ret, frame = cap.read()  
+    if not ret:  
+        break  
 
-    label_file = os.path.join(frame_label_dir, f'frame_{frame_index:04d}.txt')
+    label_file = os.path.join(frame_label_dir, f'frame_{frame_index:04d}.txt')  
 
-    if os.path.exists(label_file):
-        # Read the label file
-        with open(label_file, 'r') as f:
-            lines = f.readlines()
+    if os.path.exists(label_file):  
+        # Read the label file  
+        with open(label_file, 'r') as f:  
+            lines = f.readlines()  
 
-        for line in lines:
-            values = line.strip().split()
-            class_id = int(values[0])
-            x_center, y_center = float(values[1]) * width, float(values[2]) * height
-            box_width, box_height = float(values[3]) * width, float(values[4]) * height
+        for line in lines:  
+            values = line.strip().split()  
+            class_id = int(values[0])  
+            x_center, y_center = float(values[1]) * width, float(values[2]) * height  
+            box_width, box_height = float(values[3]) * width, float(values[4]) * height  
+  
+            x1 = int(x_center - box_width / 2)  
+            y1 = int(y_center - box_height / 2)  
+            x2 = int(x_center + box_width / 2)  
+            y2 = int(y_center + box_height / 2)  
 
-            x1 = int(x_center - box_width / 2)
-            y1 = int(y_center - box_height / 2)
-            x2 = int(x_center + box_width / 2)
-            y2 = int(y_center + box_height / 2)
+            color = class_colors.get(class_id, (255, 255, 255))      
+            label = class_mapping.get(class_id, "Unknown")  
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  
+            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)  
 
-            color = class_colors.get(class_id, (255, 255, 255))  
-            label = class_mapping.get(class_id, "Unknown")
-            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+    out.write(frame)  
+    frame_index += 1  
 
-    out.write(frame)
-    frame_index += 1
-
-cap.release()
-out.release()
-cv2.destroyAllWindows()
-print("Video processing with frame labels completed.")
+cap.release()	
+out.release()	
+cv2.destroyAllWindows()	
+print("Video processing with frame labels completed.")	
 '''
 
 * 이 코드는 객체를 탐지하고 영상에서 그 객체를 탐지하고 있음을 보여주고 있는 코드 입니다.
@@ -131,110 +131,110 @@ print("Video processing with frame labels completed.")
 
 
 '''python
-import cv2
-import os
+import cv2	
+import os	
 
-video_path = 'D:/Tennis_Video/Tennis_MP4_5.mp4'
-output_video_path = 'D:/Tennis_Video/Predict_path_Tennis.mp4'
-frame_label_dir = 'D:/Tennis_Video/frame_label'
+video_path = 'D:/Tennis_Video/Tennis_MP4_5.mp4'	
+output_video_path = 'D:/Tennis_Video/Predict_path_Tennis.mp4'	
+frame_label_dir = 'D:/Tennis_Video/frame_label'	
 
-class_mapping = {0: "ball", 1: "player", 2: "tennis racket", 3: "referee"}
-class_colors = {
-    0: (255, 0, 0),    # Blue for ball
-    1: (0, 255, 0),    # Green for player
-    2: (0, 0, 255),    # Red for tennis racket
-    3: (255, 255, 0)   # Yellow for referee
+class_mapping = {0: "ball", 1: "player", 2: "tennis racket", 3: "referee"}	
+class_colors = {	
+    0: (255, 0, 0),	    	
+    1: (0, 255, 0), 	   
+    2: (0, 0, 255),    
+    3: (255, 255, 0)	   
 }
 
-opponent_court_bounds = [(733, 374), (1221, 372), (692, 483), (1266, 487)]
+opponent_court_bounds = [(733, 374), (1221, 372), (692, 483), (1266, 487)]	
 
-def calculate_distance(point1, point2):
-    return ((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)**0.5
+def calculate_distance(point1, point2):	
+    return ((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)**0.5	
 
-def find_optimal_targets(opponent_player, court_bounds):
-    distances = [(calculate_distance(opponent_player, corner), corner) for corner in court_bounds]
-    distances.sort(reverse=True, key=lambda x: x[0])
-    return [corner for _, corner in distances[:3]]
+def find_optimal_targets(opponent_player, court_bounds):	
+    distances = [(calculate_distance(opponent_player, corner), corner) for corner in court_bounds]	
+    distances.sort(reverse=True, key=lambda x: x[0])	
+    return [corner for _, corner in distances[:3]]	
 
-def bounding_boxes_overlap(box1, box2):
-    """Check if two bounding boxes overlap."""
-    x1_min, y1_min, x1_max, y1_max = box1
-    x2_min, y2_min, x2_max, y2_max = box2
-    return not (x1_max < x2_min or x2_max < x1_min or y1_max < y2_min or y2_max < y1_min)
+def bounding_boxes_overlap(box1, box2):	
+    """Check if two bounding boxes overlap."""	
+    x1_min, y1_min, x1_max, y1_max = box1	
+    x2_min, y2_min, x2_max, y2_max = box2	
+    return not (x1_max < x2_min or x2_max < x1_min or y1_max < y2_min or y2_max < y1_min)	
 
-def draw_arrows(frame, ball_position, targets):
-    for target in targets:
-        pt1 = (int(ball_position[0]), int(ball_position[1]))
-        pt2 = (int(target[0]), int(target[1]))
-        cv2.arrowedLine(frame, pt1, pt2, (0, 0, 255), 2, tipLength=0.2)  
-        cv2.circle(frame, pt2, 5, (0, 0, 255), -1) 
+def draw_arrows(frame, ball_position, targets):	
+    for target in targets:	
+        pt1 = (int(ball_position[0]), int(ball_position[1]))	
+        pt2 = (int(target[0]), int(target[1]))	
+        cv2.arrowedLine(frame, pt1, pt2, (0, 0, 255), 2, tipLength=0.2)  		
+        cv2.circle(frame, pt2, 5, (0, 0, 255), -1) 	
 
-cap = cv2.VideoCapture(video_path)
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-fps = int(cap.get(cv2.CAP_PROP_FPS))
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
+cap = cv2.VideoCapture(video_path)	
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))	
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))	
+fps = int(cap.get(cv2.CAP_PROP_FPS))	
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')	
+out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))	
 
-frame_index = 0
+frame_index = 0	
+	
+while cap.isOpened():	
+    ret, frame = cap.read()		
+    if not ret:	
+        break	
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
+    label_file = os.path.join(frame_label_dir, f'frame_{frame_index:04d}.txt')	
 
-    label_file = os.path.join(frame_label_dir, f'frame_{frame_index:04d}.txt')
+    ball_position = None	
+    racket_position = None	
+    players = []	
 
-    ball_position = None
-    racket_position = None
-    players = []
-
-    if os.path.exists(label_file):
+    if os.path.exists(label_file):	
         
-        with open(label_file, 'r') as f:
-            lines = f.readlines()
+        with open(label_file, 'r') as f:	
+            lines = f.readlines()	
 
-        for line in lines:
-            values = line.strip().split()
-            class_id = int(values[0])
-            x_center, y_center = float(values[1]) * width, float(values[2]) * height
-            box_width, box_height = float(values[3]) * width, float(values[4]) * height
+        for line in lines:	
+            values = line.strip().split()	
+            class_id = int(values[0])	
+            x_center, y_center = float(values[1]) * width, float(values[2]) * height	
+            box_width, box_height = float(values[3]) * width, float(values[4]) * height	
 
-            x1 = int(x_center - box_width / 2)
-            y1 = int(y_center - box_height / 2)
-            x2 = int(x_center + box_width / 2)
-            y2 = int(y_center + box_height / 2)
+            x1 = int(x_center - box_width / 2)	
+            y1 = int(y_center - box_height / 2)	
+            x2 = int(x_center + box_width / 2)	
+            y2 = int(y_center + box_height / 2)	
 
-            if class_id == 0:  
-                ball_position = (x_center, y_center)
-                ball_box = (x1, y1, x2, y2)
-            elif class_id == 2:  
-                racket_position = (x_center, y_center)
-                racket_box = (x1, y1, x2, y2)
-            elif class_id == 1:  
-                players.append((x_center, y_center))
+            if class_id == 0:  	
+                ball_position = (x_center, y_center)	
+                ball_box = (x1, y1, x2, y2)	
+            elif class_id == 2:  	
+                racket_position = (x_center, y_center)	
+                racket_box = (x1, y1, x2, y2)		
+            elif class_id == 1:  		
+                players.append((x_center, y_center))		
 
-            color = class_colors.get(class_id, (255, 255, 255))  
-            label = class_mapping.get(class_id, "Unknown")
-            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+            color = class_colors.get(class_id, (255, 255, 255))  		
+            label = class_mapping.get(class_id, "Unknown")	
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)		
+            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)	
 
-    if ball_position and racket_position and bounding_boxes_overlap(ball_box, racket_box):
-        # Find the opponent player farthest from the racket
+    if ball_position and racket_position and bounding_boxes_overlap(ball_box, racket_box):	
+        	
         if players:
-            opponent_player = max(players, key=lambda p: calculate_distance(racket_position, p))
-            # Predict target positions
-            targets = find_optimal_targets(opponent_player, opponent_court_bounds)
-            # Draw arrows
+            opponent_player = max(players, key=lambda p: calculate_distance(racket_position, p))	
+            
+            targets = find_optimal_targets(opponent_player, opponent_court_bounds)	
+            
             draw_arrows(frame, ball_position, targets)
 
     out.write(frame)
     frame_index += 1
 
-cap.release()
-out.release()
-cv2.destroyAllWindows()
-print("Video processing with predictions completed.")
+cap.release()	
+out.release()	
+cv2.destroyAllWindows()	
+print("Video processing with predictions completed.")	
 '''
 
 먼저 이 코드의 기능을 알려드리자면,
