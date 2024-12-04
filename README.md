@@ -18,6 +18,8 @@
 
 🎾 이 경기 중 13:29 ~ 13:54 경기를 가지고 왔습니다!
 
+[원본 동영상](https://drive.google.com/file/d/1Mne0YNvXHv1DAu-Oi0CeqnkVZu-EL2RZ/view?usp=drive_link)
+
 💻 Code
 
 # 1. 프레임 나누기 
@@ -240,6 +242,8 @@ cv2.destroyAllWindows()
 print("Video processing with predictions completed.")	
 '''
 
+[결과 동영상] (https://drive.google.com/file/d/17_ZVFfSGgqqQTYXNizgPydWuuO-o9km_/view?usp=sharing)
+
 * 이 코드의 기능을 알려드리자면,
 
 1. 객체 탐지 및 주석 표시
@@ -419,6 +423,8 @@ print("Video processing with YOLOv8 predictions completed.")
 - 화살표로 궤적 시각화
 	- 공의 현재 위치에서 목표 지점까지의 경로를 화살표로 표시.
 	- 목표 지점은 작은 원으로 강조 표시.
+
+[결과 동영상] (https://drive.google.com/file/d/1NsFtVnyn81ACvfg3Y6bv1boIqsHk3Gc-/view?usp=drive_link)
 
 ### 비교점 및 한계점
 
